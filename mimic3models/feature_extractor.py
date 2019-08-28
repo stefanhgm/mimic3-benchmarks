@@ -6,12 +6,14 @@ from scipy.stats import skew
 
 all_functions = [min, max, np.mean, np.std, skew, len]
 
+# Defines functions applied to features
 functions_map = {
     "all": all_functions,
     "len": [len],
     "all_but_len": all_functions[:-1]
 }
 
+# Defines periods for feature generation that are parsed to ranges with get_range(begin, end, period)
 periods_map = {
     "all": (0, 0, 1, 0),
     "first4days": (0, 0, 0, 4 * 24),
@@ -21,6 +23,8 @@ periods_map = {
     "first50percent": (2, 50)
 }
 
+# Defines sub periods of periods for feature generation that are parsed to sub ranges with get_range(begin, end, period)
+# Meaning: first 10% of time, first 25% of time, first 50% of time, last 50% of time, last 25% of time, last 10% of time
 sub_periods = [(2, 100), (2, 10), (2, 25), (2, 50),
                (3, 10), (3, 25), (3, 50)]
 
@@ -73,6 +77,7 @@ def extract_features_single_episode(data_raw, period, functions):
 
 
 def extract_features(data_raw, period, features):
+    # argument features is still the original cli argument, i.e. default value "all"
     period = periods_map[period]
     functions = functions_map[features]
     return np.array([extract_features_single_episode(x, period, functions)

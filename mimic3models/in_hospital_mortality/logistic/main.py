@@ -17,7 +17,10 @@ import json
 def read_and_extract_features(reader, period, features):
     ret = common_utils.read_chunk(reader, reader.get_number_of_examples())
     # ret = common_utils.read_chunk(reader, 100)
+    # ret: X contains raw attributes, y targets, header csv header, t time limits (48h for mortality), name the name of
+    # the csv files
     X = common_utils.extract_features_from_rawdata(ret['X'], ret['header'], period, features)
+    # X contains hand-engineered features
     return (X, ret['y'], ret['name'])
 
 

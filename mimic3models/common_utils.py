@@ -24,6 +24,8 @@ def convert_to_dict(data, header, channel_info):
 def extract_features_from_rawdata(chunk, header, period, features):
     with open(os.path.join(os.path.dirname(__file__), "resources/channel_info.json")) as channel_info_file:
         channel_info = json.loads(channel_info_file.read())
+    # transform raw 2d array for each instance into separate lists for each attribute that contains timestamped tuples
+    # with attribute values (also apply value transformation from channel_info.json.
     data = [convert_to_dict(X, header, channel_info) for X in chunk]
     return extract_features(data, period, features)
 
