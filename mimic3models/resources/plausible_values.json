@@ -1,0 +1,47 @@
+{
+  "Glucose": {
+    "upper_bound": 2000
+  },
+  "Systolic blood pressure": {
+    "upper_bound": 400
+  },
+  "Glascow coma scale verbal response": {
+  },
+  "Temperature": {
+    "upper_bound": 45
+  },
+  "Weight": {
+    "upper_bound": 500
+  },
+  "Diastolic blood pressure": {
+    "upper_bound": 350
+  },
+  "Fraction inspired oxygen": {
+  },
+  "Glascow coma scale total": {
+  },
+  "Capillary refill rate": {
+  },
+  "Mean blood pressure": {
+    "upper_bound": 400
+  },
+  "Heart Rate": {
+    "upper_bound": 300
+  },
+  "Oxygen saturation": {
+    "upper_bound": 100
+  },
+  "pH": {
+    "upper_bound": 14
+  },
+  "Height": {
+    "upper_bound": 260
+  },
+  "Glascow coma scale eye opening": {
+  },
+  "Respiratory rate": {
+    "upper_bound": 120
+  },
+  "Glascow coma scale motor response": {
+  }
+}

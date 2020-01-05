@@ -21,12 +21,38 @@ def convert_to_dict(data, header, channel_info):
     return ret
 
 
+def remove_implausible_values(data, header, plausible_values):
+    """ remove highly implausible values and report each deletion """
+    implausible_case = False
+    for i in range(0, len(data)):
+        channel = header[i + 1]
+        for check in plausible_values[channel]:
+            if check == 'upper_bound':
+                bound = plausible_values[channel]['upper_bound']
+                # first check if implausible value exists and notify user
+                implausible_element = False
+                for (t, x) in data[i]:
+                    if x > bound:
+                        implausible_element = True
+                        implausible_case = True
+                        print("Found implausible", header[i + 1], "with value", x)
+                # remove implausible
+                if implausible_element:
+                    data[i] = [(t, x) for (t, x) in data[i] if x <= bound]
+    if implausible_case:
+        print("Found implausible case.")
+    return data
+
+
 def extract_features_from_rawdata(chunk, header, period, features):
     with open(os.path.join(os.path.dirname(__file__), "resources/channel_info.json")) as channel_info_file:
         channel_info = json.loads(channel_info_file.read())
+    with open(os.path.join(os.path.dirname(__file__), "resources/plausible_values.json")) as plausible_values_file:
+        plausible_values = json.loads(plausible_values_file.read())
     # transform raw 2d array for each instance into separate lists for each attribute that contains timestamped tuples
     # with attribute values (also apply value transformation from channel_info.json.
     data = [convert_to_dict(X, header, channel_info) for X in chunk]
+    data = [remove_implausible_values(X, header, plausible_values) for X in data]
     return extract_features(data, period, features)
 
 

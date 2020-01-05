@@ -54,6 +54,8 @@ def main():
                                             period_length=48.0)
 
     print('Reading data and extracting features ...')
+    # read_and_extract removes some highly implausible values according to plausible_values.json
+    print('Remove implausible values ...')
     (train_X, train_y, train_names) = read_and_extract_features(train_reader, args.period, args.features)
     (val_X, val_y, val_names) = read_and_extract_features(val_reader, args.period, args.features)
     (test_X, test_y, test_names) = read_and_extract_features(test_reader, args.period, args.features)
