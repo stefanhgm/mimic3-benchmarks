@@ -63,12 +63,21 @@ def main():
     print('  validation data shape = {}'.format(val_X.shape))
     print('  test data shape = {}'.format(test_X.shape))
 
-    print('Imputing missing values ...')
-    imputer = Imputer(missing_values=np.nan, strategy='mean', axis=0, verbose=0, copy=True)
-    imputer.fit(train_X)
-    train_X = np.array(imputer.transform(train_X), dtype=np.float32)
-    val_X = np.array(imputer.transform(val_X), dtype=np.float32)
-    test_X = np.array(imputer.transform(test_X), dtype=np.float32)
+    # print('Imputing missing values ...')
+    # imputer = Imputer(missing_values=np.nan, strategy='mean', axis=0, verbose=0, copy=True)
+    # imputer.fit(train_X)
+    # train_X = np.array(imputer.transform(train_X), dtype=np.float32)
+    # val_X = np.array(imputer.transform(val_X), dtype=np.float32)
+    # test_X = np.array(imputer.transform(test_X), dtype=np.float32)
+
+    print('Imputing missing values with -1.')
+    # Verified that all values are greater or equal than zero via np.nanmin()
+    train_X[np.isnan(train_X)] = -1.
+    val_X[np.isnan(val_X)] = -1.
+    test_X[np.isnan(test_X)] = -1.
+    train_X = np.array(train_X, dtype=np.float32)
+    val_X = np.array(val_X, dtype=np.float32)
+    test_X = np.array(test_X, dtype=np.float32)
 
     print('Normalizing the data to have zero mean and unit variance ...')
     scaler = StandardScaler()
