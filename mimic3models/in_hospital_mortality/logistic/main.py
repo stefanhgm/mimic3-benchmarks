@@ -79,12 +79,12 @@ def main():
     val_X = np.array(val_X, dtype=np.float32)
     test_X = np.array(test_X, dtype=np.float32)
 
-    print('Normalizing the data to have zero mean and unit variance ...')
-    scaler = StandardScaler()
-    scaler.fit(train_X)
-    train_X = scaler.transform(train_X)
-    val_X = scaler.transform(val_X)
-    test_X = scaler.transform(test_X)
+    # # print('Normalizing the data to have zero mean and unit variance ...')
+    # scaler = StandardScaler()
+    # scaler.fit(train_X)
+    # train_X = scaler.transform(train_X)
+    # val_X = scaler.transform(val_X)
+    # test_X = scaler.transform(test_X)
 
     print('Export features along with target as csv files ...')
     train_file = os.path.join(args.output_dir, 'in-hospital-mortality-train.csv')
