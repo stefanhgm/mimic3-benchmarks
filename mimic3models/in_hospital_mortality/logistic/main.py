@@ -33,7 +33,7 @@ def main():
     parser.add_argument('--period', type=str, default='all', help='specifies which period extract features from',
                         choices=['first4days', 'first8days', 'last12hours', 'first25percent', 'first50percent', 'all'])
     parser.add_argument('--features', type=str, default='all', help='specifies what features to extract',
-                        choices=['all', 'len', 'all_but_len'])
+                        choices=['all', 'len', 'all_but_len', 'mean_and_sd'])
     parser.add_argument('--data', type=str, help='Path to the data of in-hospital mortality task',
                         default=os.path.join(os.path.dirname(__file__), '../../../data/in-hospital-mortality/'))
     parser.add_argument('--output_dir', type=str, help='Directory relative which all output files are stored',

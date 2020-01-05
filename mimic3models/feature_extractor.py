@@ -10,7 +10,8 @@ all_functions = [min, max, np.mean, np.std, skew, len]
 functions_map = {
     "all": all_functions,
     "len": [len],
-    "all_but_len": all_functions[:-1]
+    "all_but_len": all_functions[:-1],
+    "mean_and_sd": [np.mean, np.std]
 }
 
 # Defines periods for feature generation that are parsed to ranges with get_range(begin, end, period)
@@ -25,8 +26,10 @@ periods_map = {
 
 # Defines sub periods of periods for feature generation that are parsed to sub ranges with get_range(begin, end, period)
 # Meaning: first 10% of time, first 25% of time, first 50% of time, last 50% of time, last 25% of time, last 10% of time
-sub_periods = [(2, 100), (2, 10), (2, 25), (2, 50),
-               (3, 10), (3, 25), (3, 50)]
+# sub_periods = [(2, 100), (2, 10), (2, 25), (2, 50),
+#                (3, 10), (3, 25), (3, 50)]
+# use full period as sub period
+sub_periods = [(2, 100)]
 
 
 def get_range(begin, end, period):
