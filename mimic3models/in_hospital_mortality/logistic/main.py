@@ -75,6 +75,14 @@ def main():
     val_X = scaler.transform(val_X)
     test_X = scaler.transform(test_X)
 
+    print('Export features along with target as csv files ...')
+    train_file = os.path.join(args.output_dir, 'in-hospital-mortality-train.csv')
+    val_file = os.path.join(args.output_dir, 'in-hospital-mortality-val.csv')
+    test_file = os.path.join(args.output_dir, 'in-hospital-mortality-test.csv')
+    np.savetxt(train_file, np.concatenate((train_X, (np.array([train_y])).T), axis=1), delimiter='\t')
+    np.savetxt(val_file, np.concatenate((val_X, (np.array([val_y])).T), axis=1), delimiter='\t')
+    np.savetxt(test_file, np.concatenate((test_X, (np.array([test_y])).T), axis=1), delimiter='\t')
+
     penalty = ('l2' if args.l2 else 'l1')
     file_name = '{}.{}.{}.C{}'.format(args.period, args.features, penalty, args.C)
 
