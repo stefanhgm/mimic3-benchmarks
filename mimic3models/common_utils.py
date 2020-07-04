@@ -52,7 +52,7 @@ def extract_features_from_rawdata(chunk, header, period, features):
     # transform raw 2d array for each instance into separate lists for each attribute that contains timestamped tuples
     # with attribute values (also apply value transformation from channel_info.json.
     data = [convert_to_dict(X, header, channel_info) for X in chunk]
-    data = [remove_implausible_values(X, header, plausible_values) for X in data]
+    #data = [remove_implausible_values(X, header, plausible_values) for X in data]
     return extract_features(data, period, features)
 
 

@@ -55,7 +55,7 @@ def main():
 
     print('Reading data and extracting features ...')
     # read_and_extract removes some highly implausible values according to plausible_values.json
-    print('Remove implausible values ...')
+    # print('Remove implausible values ...')
     (train_X, train_y, train_names) = read_and_extract_features(train_reader, args.period, args.features)
     (val_X, val_y, val_names) = read_and_extract_features(val_reader, args.period, args.features)
     (test_X, test_y, test_names) = read_and_extract_features(test_reader, args.period, args.features)
@@ -64,27 +64,27 @@ def main():
     print('  test data shape = {}'.format(test_X.shape))
 
     # print('Imputing missing values ...')
-    # imputer = Imputer(missing_values=np.nan, strategy='mean', axis=0, verbose=0, copy=True)
-    # imputer.fit(train_X)
-    # train_X = np.array(imputer.transform(train_X), dtype=np.float32)
-    # val_X = np.array(imputer.transform(val_X), dtype=np.float32)
-    # test_X = np.array(imputer.transform(test_X), dtype=np.float32)
+    imputer = Imputer(missing_values=np.nan, strategy='mean', axis=0, verbose=0, copy=True)
+    imputer.fit(train_X)
+    train_X = np.array(imputer.transform(train_X), dtype=np.float32)
+    val_X = np.array(imputer.transform(val_X), dtype=np.float32)
+    test_X = np.array(imputer.transform(test_X), dtype=np.float32)
 
-    print('Imputing missing values with -1.')
+    # print('Imputing missing values with -1.')
     # Verified that all values are greater or equal than zero via np.nanmin()
-    train_X[np.isnan(train_X)] = -1.
-    val_X[np.isnan(val_X)] = -1.
-    test_X[np.isnan(test_X)] = -1.
-    train_X = np.array(train_X, dtype=np.float32)
-    val_X = np.array(val_X, dtype=np.float32)
-    test_X = np.array(test_X, dtype=np.float32)
+    # train_X[np.isnan(train_X)] = -1.
+    # val_X[np.isnan(val_X)] = -1.
+    # test_X[np.isnan(test_X)] = -1.
+    # train_X = np.array(train_X, dtype=np.float32)
+    # val_X = np.array(val_X, dtype=np.float32)
+    # test_X = np.array(test_X, dtype=np.float32)
 
-    # # print('Normalizing the data to have zero mean and unit variance ...')
-    # scaler = StandardScaler()
-    # scaler.fit(train_X)
-    # train_X = scaler.transform(train_X)
-    # val_X = scaler.transform(val_X)
-    # test_X = scaler.transform(test_X)
+    print('Normalizing the data to have zero mean and unit variance ...')
+    scaler = StandardScaler()
+    scaler.fit(train_X)
+    train_X = scaler.transform(train_X)
+    val_X = scaler.transform(val_X)
+    test_X = scaler.transform(test_X)
 
     print('Export features along with target as csv files ...')
     train_file = os.path.join(args.output_dir, 'in-hospital-mortality-train.csv')
